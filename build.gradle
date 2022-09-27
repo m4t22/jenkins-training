@@ -1,6 +1,6 @@
 plugins {
     id 'groovy'
-    id "com.mooltiverse.oss.nyx" version "1.1.0"
+    id "com.github.jmongard.git-semver-plugin" version "0.4.3"
 }
 
 repositories {
@@ -27,36 +27,4 @@ test {
     }
 }
 
-nyx {
-  dryRun = false
-  initialVersion = "0.1.0"
-  preset = 'simple'
-  releaseLenient = true
-  releasePrefix = 'v'
-  scheme = "SEMVER"
-  verbosity = "WARNING"
-
-  releaseTypes {
-    publicationServices = [ 'github' ]
-    items {
-      mainline {
-        gitCommit = 'true'
-        publish = 'true'
-        gitPush = 'true'
-        gitTag = 'true'
-      }
-    }
-  }
-
-  services {
-    github {
-      type = 'GITHUB'
-      options {
-        // The authentication token is read from the GH_TOKEN environment variable.
-        AUTHENTICATION_TOKEN = '{{#environment.variable}}GH_TOKEN{{/environment.variable}}'
-        REPOSITORY_NAME = 'jenkins-training'
-        REPOSITORY_OWNER = 'm4t22'
-      }
-    }
-  }
-}
+version = semver.version
