@@ -1,5 +1,6 @@
 plugins {
     id 'groovy'
+    id "com.mooltiverse.oss.nyx" version "1.1.0"
 }
 
 repositories {
@@ -24,4 +25,35 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+}
+
+nyx {
+  dryRun = false
+  initialVersion = "0.1.0"
+  preset = 'simple'
+  releaseLenient = true
+  releasePrefix = 'v'
+  scheme = "SEMVER"
+  verbosity = "WARNING"
+
+  releaseTypes {
+    publicationServices = [ 'github' ]
+    items {
+      mainline {
+        gitCommit = 'true'
+      }
+    }
+  }
+
+  services {
+    github {
+      type = 'GITHUB'
+      options {
+        // The authentication token is read from the GH_TOKEN environment variable.
+        AUTHENTICATION_TOKEN = '{{#environment.variable}}GH_TOKEN{{/environment.variable}}'
+        REPOSITORY_NAME = 'jenkins-training'
+        REPOSITORY_OWNER = 'm4t22'
+      }
+    }
+  }
 }
