@@ -41,6 +41,9 @@ nyx {
     items {
       mainline {
         gitCommit = 'true'
+        publish = 'true'
+        gitPush = 'true'
+        gitTag = 'true'
       }
     }
   }
