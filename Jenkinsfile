@@ -3,10 +3,9 @@
  pipeline {
     agent any 
     stages {
-        stage('Hello') { 
+        stage('Bump version') { 
             steps {
-                echo 'Hello world'
-                test 'World'
+                semVer()
             }
         }
     }
